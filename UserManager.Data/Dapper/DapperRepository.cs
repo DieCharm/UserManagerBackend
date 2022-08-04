@@ -10,11 +10,11 @@ namespace UserManager.Data.Dapper
     public class DapperRepository : 
         IUserRepository
     {
-        private readonly string _connectionString;
+        private readonly IDatabaseConnection _connection;
 
-        public DapperRepository(string connectionString)
+        public DapperRepository(IDatabaseConnection connection)
         {
-            _connectionString = connectionString;
+            _connection = connection;
         }
         
         public async Task<IEnumerable<User>> GetAllAsync()
@@ -22,7 +22,7 @@ namespace UserManager.Data.Dapper
             string query = 
                 "SELECT * FROM Users";
             
-            using (IDbConnection database = new SqlConnection(_connectionString))
+            using (IDbConnection database = _connection.Connection())
             {
                 var result = await database.QueryAsync<User>(query);
                 return result.ToList();
@@ -35,7 +35,7 @@ namespace UserManager.Data.Dapper
                 "INSERT INTO Users " + 
                 "VALUES(@FirstName, @LastName, @BirthDate, @Email, @PhoneNumber, @Info)";
             
-            using (IDbConnection database = new SqlConnection(_connectionString))
+            using (IDbConnection database = _connection.Connection())
             {
                 await database.ExecuteAsync(query, user);
             }
@@ -46,7 +46,7 @@ namespace UserManager.Data.Dapper
             string query = 
                 "SELECT * FROM Users WHERE Id = @id";
             
-            using (IDbConnection database = new SqlConnection(_connectionString))
+            using (IDbConnection database = _connection.Connection())
             {
                 var result = await database.QueryAsync<User>(query, new { id });
                 return result.FirstOrDefault();
@@ -65,7 +65,7 @@ namespace UserManager.Data.Dapper
                 "Info = @Info " + 
                 "WHERE Id = @Id";
 
-            using (IDbConnection database = new SqlConnection(_connectionString))
+            using (IDbConnection database = _connection.Connection())
             {
                 await database.ExecuteAsync(query, user);
             }
@@ -76,7 +76,7 @@ namespace UserManager.Data.Dapper
             var query =
                 "DELETE FROM Users WHERE Id = @id";
 
-            using (IDbConnection database = new SqlConnection(_connectionString))
+            using (IDbConnection database = _connection.Connection())
             {
                 await database.ExecuteAsync(query, new { id });
             }

@@ -3,3 +3,5 @@
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+appsettings.json
+client_secret.json

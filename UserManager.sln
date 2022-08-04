@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManager.Server", "UserM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManager.Data", "UserManager.Data\UserManager.Data.csproj", "{7F124686-739F-4178-9E93-8B52CFE4B878}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManager.Auth", "UserManager.Auth\UserManager.Auth.csproj", "{DAA367AC-ED28-4576-A8DC-FAD25009A602}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManager.Tests", "UserManager.Tests\UserManager.Tests.csproj", "{0FF8735D-A1EF-4C2E-BB16-B76111588D65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{7F124686-739F-4178-9E93-8B52CFE4B878}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F124686-739F-4178-9E93-8B52CFE4B878}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F124686-739F-4178-9E93-8B52CFE4B878}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAA367AC-ED28-4576-A8DC-FAD25009A602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAA367AC-ED28-4576-A8DC-FAD25009A602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAA367AC-ED28-4576-A8DC-FAD25009A602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAA367AC-ED28-4576-A8DC-FAD25009A602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF8735D-A1EF-4C2E-BB16-B76111588D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF8735D-A1EF-4C2E-BB16-B76111588D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF8735D-A1EF-4C2E-BB16-B76111588D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF8735D-A1EF-4C2E-BB16-B76111588D65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

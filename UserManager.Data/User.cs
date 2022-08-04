@@ -9,7 +9,7 @@ namespace UserManager.Data
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string Info { get; set; }
     }
 }

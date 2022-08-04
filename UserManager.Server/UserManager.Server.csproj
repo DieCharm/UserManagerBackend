@@ -6,10 +6,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\UserManager.Auth\UserManager.Auth.csproj" />
       <ProjectReference Include="..\UserManager.Data\UserManager.Data.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Google.Apis.Gmail.v1" Version="1.57.0.2650" />
+      <PackageReference Include="MimeKit" Version="3.3.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.6.3" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.6.3" />
