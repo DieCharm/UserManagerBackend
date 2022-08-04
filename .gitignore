@@ -1,5 +1,6 @@
 **/obj
 **/bin
+**/token.json
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
