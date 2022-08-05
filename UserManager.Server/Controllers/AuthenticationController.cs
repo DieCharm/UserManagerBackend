@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -54,7 +53,7 @@ namespace UserManager.Controllers
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                    var param = new Dictionary<string, string?>
+                    var param = new Dictionary<string, string>
                     {
                         {"token", token },
                         {"email", user.Email }
@@ -78,18 +77,17 @@ namespace UserManager.Controllers
         /// <summary>
         /// Confirms an email
         /// </summary>
-        /// <param name="email">Email</param>
-        /// <param name="token">Confirmation token generated in register method</param>
+        /// <param name="confirmation">Email and confirmation token</param>
         /// <returns>JWT token</returns>
-        [HttpGet]
+        [HttpPost]
         [Route("confirm-email")]
-        public async Task<ActionResult> ConfirmEMail(string email, string token)
+        public async Task<ActionResult> ConfirmEMail([FromBody] ConfirmEmail confirmation)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(confirmation.Email);
             if (user == null) return BadRequest();
             
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-            if (result.Succeeded)
+            var result = await _userManager.ConfirmEmailAsync(user, confirmation.Token);
+            if (result.Succeeded && user.EmailConfirmed)
             {
                 await _signInManager.SignInAsync(user, false);
                 string jwt = _tokenService.GetToken(user);
@@ -114,10 +112,10 @@ namespace UserManager.Controllers
 
                 if (user != null)
                 {
-                    var result = _signInManager
+                    var result = await _signInManager
                         .PasswordSignInAsync(user, request.Password, false, false);
 
-                    if (result.IsCompletedSuccessfully)
+                    if (result.Succeeded)
                     {
                         string token = _tokenService.GetToken(user);
                         return new JsonResult(token);
@@ -126,18 +124,6 @@ namespace UserManager.Controllers
             }
 
             return new UnauthorizedResult();
-        }
-
-        /// <summary>
-        /// Is called to log out and deactivate JWT token
-        /// </summary>
-        [Authorize]
-        [HttpDelete]
-        [Route("logout")]
-        public async Task LogOut()
-        {
-            await _signInManager.SignOutAsync();
-            //cancel token mb
         }
     }
 }

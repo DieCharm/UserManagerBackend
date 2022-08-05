@@ -28,21 +28,20 @@ namespace UserManager
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, DapperRepository>();
+            services.AddScoped<IUserRepository, EfRepository>();
             services.AddScoped<IDatabaseConnection, SqlServerDatabaseConnection>();
             services.AddScoped<MailService>();
             services.AddScoped<TokenService>();
             
-            services.AddControllers();
-            /*options => 
-                options.Filters.Add(new ExceptionFilter())*/
+            services.AddControllers(options => 
+                options.Filters.Add(new ExceptionFilter()));
 
             services.AddCors();
             
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("Auth")));
-            /*services.AddDbContext<UserContext>(options =>
-                options.UseSqlServer(_configuration.GetConnectionString("Users")));*/
+            services.AddDbContext<UserContext>(options =>
+                options.UseSqlServer(_configuration.GetConnectionString("Users")));
 
             services.AddDefaultIdentity<IdentityUser>(options =>
                 {
@@ -92,6 +91,7 @@ namespace UserManager
 
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
+                .AllowAnyMethod()
                 .AllowAnyHeader());
  
             app.UseRouting();

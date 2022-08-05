@@ -22,11 +22,10 @@ namespace UserManager.Tests.Dapper.Tests
             using (var db = OpenConnection())
             {
                 db.CreateTableIfNotExists<User>();
-                //db.AlterTable<User>("ADD PRIMARY KEY(Id)");
                 
                 foreach (User user in TestData.Users)
                 {
-                    await db.InsertAsync(user);
+                    await db.InsertAsync(user, true);
                 }
 
                 if (await db.TableExistsAsync("User"))
