@@ -49,6 +49,7 @@ namespace UserManager.Tests.Dapper.Tests
             IUserRepository repository = await GetRepository();
             User toAdd = new User()
             {
+                Id = 4,
                 FirstName = "Recently",
                 LastName = "Added",
                 BirthDate = new DateTime(2000, 10, 10),

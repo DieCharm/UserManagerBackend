@@ -31,7 +31,7 @@ namespace UserManager.Data.Dapper
         public async Task CreateAsync(User user)
         {
             string query = 
-                "INSERT INTO Users " + 
+                "INSERT INTO Users(FirstName, LastName, BirthDate, Email, PhoneNumber, Info) " + 
                 "VALUES(@FirstName, @LastName, @BirthDate, @Email, @PhoneNumber, @Info)";
             
             using (IDbConnection database = _connection.Connection())
